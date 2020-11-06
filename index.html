@@ -40,8 +40,6 @@
       height: 40px;
       width: 40px;
       position: absolute;
-      top: 40px;
-      left: 40px;
     }
 
     .blank{
@@ -79,13 +77,13 @@
     </div>
   </div> -->
   <div id="ninjaman"></div>
-  <script text="text/javascript">
+  <script>
     var world = 
     [ [1,1,1,1,1,1,1,1,1,1],
-      [1,0,2,2,1,2,1,2,2,1],
+      [1,2,2,2,1,2,1,2,2,1],
       [1,2,1,2,1,2,2,2,1,1],
       [1,2,1,2,1,1,1,2,2,1],
-      [1,2,1,2,2,1,2,2,1,1],
+      [1,2,1,0,2,1,2,2,1,1],
       [1,2,1,1,2,1,1,2,2,1],
       [1,2,1,2,2,2,2,2,1,1],
       [1,2,2,2,1,2,1,2,2,1],
@@ -96,6 +94,18 @@
       0: "blank",
       1: "wall",
       2: "sushi",
+    }
+
+    var leftValue = 40, topValue = 40;
+
+    var ninjaman = {
+      x:3,
+      y:4
+    }
+
+    function drawNinjaman(){
+      document.getElementById('ninjaman').style.top = ninjaman.y * 40 + 'px'
+      document.getElementById('ninjaman').style.left = ninjaman.x * 40 + 'px'
     }
 
     function drawWorld(){
@@ -110,8 +120,38 @@
       }
         document.getElementById('world').innerHTML = output;
     }
+
+    document.onkeydown = function(e){
+	
+		
+		if(e.keyCode == 37) { // LEFT
+      if(world[ninjaman.y][ninjaman.x-1]!=1){
+      ninjaman.x--
+      }
+		}
+		else if (e.keyCode == 39) { // RIGHT
+			if(world[ninjaman.y][ninjaman.x+1]!=1){
+      ninjaman.x++
+      }
+		}
+		else if (e.keyCode == 40) { // DOWN
+      if(world[ninjaman.y+1][ninjaman.x]!=1){
+      ninjaman.y++
+      }
+		}				
+		else if (e.keyCode == 38) { // UP
+      if(world[ninjaman.y-1][ninjaman.x]!=1){
+      ninjaman.y--
+      }
+    }
+    world[ninjaman.y][ninjaman.x] =0
+    drawNinjaman()
+    drawWorld()
+	}
     
     drawWorld()
+    drawNinjaman()
+  
   </script>
 </body>
 </html>
